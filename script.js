@@ -20,7 +20,7 @@ $(document).ready(function () {
             unit: 'lọ',
             labelImg: 'AnhSanPham/Nhãn Cao Mềm Thảo Mộc An Diệp Mộc.png',
             realImg: 'AnhQuaTrinhLam/image38.jpeg',
-            giftImg: 'AnhQuaTang/2aOboRC6fVoq93tqNGccRgqL4mV9JDjAcfCEHhLc.jpg',
+            giftImg: 'AnhQuaTang/QuanTangThem1.jpg',
             ingredients: 'Chiết xuất cô đặc từ Lá ngải cứu, Lá đinh lăng, Lá trà xanh bản địa kết hợp Mật ong rừng nguyên chất.',
             benefits: [
                 'Tăng tuần hoàn máu não, cải thiện trí nhớ và kích thích tiêu hóa.',
@@ -43,7 +43,7 @@ $(document).ready(function () {
             unit: 'chai',
             labelImg: 'AnhSanPham/a9471de8-c2d2-4150-922e-738efbfd77a3.png',
             realImg: 'AnhQuaTrinhLam/image41.jpeg',
-            giftImg: 'AnhQuaTang/2aOboRC6e8NKP3CNBKHVW6ukZmS88V5LMxjPde3k.jpg',
+            giftImg: 'AnhQuaTang/QuanTangThem2.jpg',
             ingredients: 'Dịch chưng cất lôi cuốn hơi nước từ Lá trầu không, Lá trà xanh, Lá ngải cứu và Muối ăn tinh khiết.',
             benefits: [
                 'Làm sạch khoang miệng, loại bỏ thức ăn thừa và ngăn ngừa mảng bám.',
@@ -66,7 +66,7 @@ $(document).ready(function () {
             unit: 'lọ',
             labelImg: 'AnhSanPham/fd990e08-570c-42ba-8521-9680e077d368.jfif',
             realImg: 'AnhQuaTrinhLam/image39.jpeg',
-            giftImg: 'AnhQuaTang/2aOboRC6fcSjecnUX8O6IB6D1hOP0KeeRl73KvD6.jpg',
+            giftImg: 'AnhQuaTang/QuanTangThem1.jpg',
             ingredients: 'Ngải cứu, Trà xanh, Đinh lăng, Mật ong tự nhiên, Tinh dầu gừng bản địa.',
             benefits: [
                 'Giảm ho khan, ho gió, ho có đờm và làm dịu nhanh cảm giác đau rát cổ họng.',
@@ -89,7 +89,7 @@ $(document).ready(function () {
             unit: 'gói',
             labelImg: 'AnhSanPham/30bd6de5-4e9c-4074-a571-affa88e2da86.jfif',
             realImg: 'AnhQuaTrinhLam/image40.jpeg',
-            giftImg: 'AnhQuaTang/2aOboRC6fVoq93tqNGccRgqL4mV9JDjAcfCEHhLc.jpg',
+            giftImg: 'AnhQuaTang/QuanTangThem2.jpg',
             ingredients: 'Lá ngải cứu, Lá đinh lăng, Lá trà xanh cô đặc kết hợp Mật ong rừng nguyên chất.',
             benefits: [
                 'Làm dịu nhanh cơn ngứa cổ, đau rát họng và các cơn ho khan.',
@@ -112,7 +112,7 @@ $(document).ready(function () {
             unit: 'chiếc',
             labelImg: 'AnhSanPham/324b502d-9d30-4897-9f3f-869a3251df28.jfif',
             realImg: 'AnhQuaTrinhLam/image43.jpeg',
-            giftImg: 'AnhQuaTang/2aOboRC6e8NKP3CNBKHVW6ukZmS88V5LMxjPde3k.jpg',
+            giftImg: 'AnhQuaTang/QuanTangThem3.jpg',
             ingredients: 'Lá ngải cứu bản địa sấy khô tự nhiên giữ trọn tinh dầu kết hợp Bông mềm tự nhiên và vỏ vải nhung xanh dịu mắt.',
             benefits: [
                 'Nâng đỡ tối ưu vùng đốt sống cổ và vai gáy khi ngồi làm việc hoặc đi tàu xe.',
@@ -135,7 +135,7 @@ $(document).ready(function () {
             unit: 'túi',
             labelImg: 'AnhSanPham/332f7ff7-2d31-498e-9058-169ee5fa1cec.jfif',
             realImg: 'AnhQuaTrinhLam/image42.jpeg',
-            giftImg: 'AnhQuaTang/2aOboRC6fcSjecnUX8O6IB6D1hOP0KeeRl73KvD6.jpg',
+            giftImg: 'AnhQuaTang/QuanTangThem3.jpg',
             ingredients: 'Lá ngải cứu bản địa và Gừng già sấy khô nghiền nhỏ đóng trong túi lọc tiện dụng.',
             benefits: [
                 'Làm ấm đôi bàn chân (“trái tim thứ hai” của cơ thể), xua tan hàn khí mùa lạnh.',
@@ -202,13 +202,23 @@ $(document).ready(function () {
     const $window = $(window);
     const $header = $('#header');
     const $backToTop = $('#backToTop');
+    const $promoBar = $('.top-promo-bar');
 
-    $window.on('scroll', function () {
+    function handleHeaderScroll() {
         const scrollTop = $window.scrollTop();
-        if (scrollTop > 60) {
-            $header.addClass('scrolled');
+        const triggerPoint = $promoBar.length ? $promoBar.outerHeight() : 40;
+
+        if (scrollTop > triggerPoint) {
+            if (!$header.hasClass('scrolled')) {
+                const headerH = $header.outerHeight();
+                $('body').css('padding-top', headerH + 'px');
+                $header.addClass('scrolled');
+            }
         } else {
-            $header.removeClass('scrolled');
+            if ($header.hasClass('scrolled')) {
+                $header.removeClass('scrolled');
+                $('body').css('padding-top', '0px');
+            }
         }
 
         if (scrollTop > 500) {
@@ -227,7 +237,10 @@ $(document).ready(function () {
                 $(`.nav-link[href="#${id}"]`).addClass('active');
             }
         });
-    });
+    }
+
+    $window.on('scroll resize', handleHeaderScroll);
+    handleHeaderScroll();
 
     $('#mobileMenuBtn').on('click', function (e) {
         e.stopPropagation();
